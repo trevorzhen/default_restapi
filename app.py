@@ -3,6 +3,7 @@ from flask_restful import Api, Resource, reqparse
 import pickle
 import numpy as np
 import pandas as pd
+import os
 
 APP = Flask(__name__)
 API = Api(APP)
@@ -37,5 +38,6 @@ class Predict(Resource):
 
 API.add_resource(Predict, '/predict')
 
+port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    APP.run()
+    APP.run(threaded=True, host='0.0.0.0', port=port)
